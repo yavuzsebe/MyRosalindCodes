@@ -25,3 +25,28 @@ while i<len(list(fasta_dictionary.keys())):
     fastaFile[list(fasta_dictionary.keys())[i]]=[]
     fastaFile[list(fasta_dictionary.keys())[i]].append(emptyStr)
     i+=1
+
+shortest=min(fastaFile.values())[0]
+
+motifList=[]
+
+l=2
+while l<len(shortest):
+    i=0
+    while i<len(shortest) and i+l<len(shortest)+1:
+        dictIndex=0
+        motifCount=0
+        while dictIndex<len(fastaFile):
+            if shortest[i:i+l] in fastaFile[list(fastaFile.keys())[dictIndex]][0]:
+                motifCount+=1
+                if motifCount==len(fastaFile):
+                    motifList.append(shortest[i:i+l])
+                else:
+                    dictIndex+=1
+            else:
+                dictIndex+=1
+                continue
+        i+=1
+    l+=1 
+
+print(motifList[-1])
